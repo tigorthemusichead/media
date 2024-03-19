@@ -48,6 +48,8 @@ def home():
   if request.method == 'POST':
     file = request.files['file']
     file_name = f"./uploaded/{time.time()}_{secure_filename(file.filename)}"
+    if not os.path.exists('./uploaded'):
+      os.makedirs('./uploaded')
     file.save(file_name)
     text = process_file(file_name)
     return render_template('base.html', text=text)
