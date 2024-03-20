@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if session['name'] != Null %}
+  <section class="container">
+      <form action="/" method="POST" enctype="multipart/form-data" onsubmit="startLoading()">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="card col-md-8 col-sm-12 shadow w-100 position-relative">
+            <div class="card-body py-4">
+              <div class="mb-2">
+                <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
+                  <i class="bi bi-cassette-fill"></i> Input audio file
+                </div>
+                <input
+                  type="file"
+                  name="file"
+                  class="form-control"
+                  required
+                  onchange="onInput()"
+                >
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <div class="spinner-border spinner-border-sm text-primary" role="status" id="spinner" hidden>
+                </div>
+                <button type="submit" class="btn btn-primary form-control max-w-20" id="btn">
+                  Submit
+                </button>
+              </div>
+              </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+      </form>
+    </section>
+    <div class="m-4"></div>
+    <section class="container">
+      <div class="row">
+          <div class="col-md-2"></div>
+          <div class="card col-md-8 col-sm-12 shadow w-100">
+            <div class="card-body">
+                  <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
+                    <i class="bi bi-blockquote-right"></i> Text
+                  </div>
+                <pre id="text-container" class="text-wrap">
+                  {% if text == Null %}
+                    Here will be the transcribed text
+                  {% else %}
+                    {{ text }}
+                  {% endif %}
+                </pre>
+            </div>
+          </div>
+         <div class="col-md-2"></div>
+      </div>
+    </section>
+    {% for item in history %}
+      <div class="m-4"></div>
+      <section class="container">
+      <div class="row">
+          <div class="col-md-2"></div>
+          <div class="card col-md-8 col-sm-12 shadow w-100">
+            <div class="card-body">
+                  <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
+                    <i class="bi bi-blockquote-right"></i> History
+                  </div>
+                <pre class="text-wrap">
+                  {{ item }}
+                </pre>
+            </div>
+          </div>
+         <div class="col-md-2"></div>
+      </div>
+    </section>
+    {%endfor%}
+{% else %}
+<section class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="card col-md-8 col-sm-12 shadow w-100">
+      <div class="card-body">
+        <h2 class="text-center mb-2">
+          <i class="bi bi-person"></i> Login or register to use transcriber
+        </h2>
+        <div class="d-flex justify-content-center">
+          <a href="/login">
+            <button class="btn btn-primary">
+              Login / Register
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

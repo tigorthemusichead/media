@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="row">
+  <div class="col-md-6 col-12 mb-4">
+    <div class="card shadow position-relative">
+      <div class="card-body pt-6">
+        <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
+          <i class="bi bi-person-check"></i> Log in to your account
+        </div>
+        {% if error.login != Null%}
+        <div class="badge badge-danger bg-danger border text-white position-absolute fs-6 shadow-sm" style="top:-1rem;right:1rem">
+          <i class="bi bi-exclamation-square-fill"></i> {{error.login}}
+        </div>
+        {% endif %}
+        <form action="/login" method="POST">
+          <div class="mb-2">
+            <label class="form-label">Username</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter username" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+          </div>
+          <button class="btn btn-primary">
+            Log in
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-12 mb-4">
+    <div class="card shadow position-relative">
+      <div class="card-body pt-6">
+        <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
+          <i class="bi bi-person-add"></i> Create an account
+        </div>
+        {% if error.register != Null%}
+        <div class="badge badge-danger bg-danger border text-white position-absolute fs-6 shadow-sm" style="top:-1rem;right:1rem">
+          <i class="bi bi-exclamation-square-fill"></i> {{error.register}}
+        </div>
+        {% endif %}
+        <form action="/register" method="POST">
+          <div class="mb-2">
+            <label class="form-label">Username</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter username" required>
+          </div>
+          <div class="row mb-4 gap-md-0 gap-2">
+            <div class="col-md-6 col-12">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+            </div>
+            <div class="col-md-6 col-12">
+              <label class="form-label">Repeat password</label>
+              <input type="password" name="password-repeat" class="form-control" placeholder="Enter password" required>
+            </div>
+          </div>
+          <button class="btn btn-primary">
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

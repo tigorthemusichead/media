@@ -22,67 +22,37 @@
       const spinner = document.querySelector('#spinner')
       spinner.hidden = false
     }
+    function onInput (e) {
+      e.preventDefault()
+      console.log(e.target.files)
+    }
   </script>
   <header class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow p-2 mb-4">
     <div class="container">
-      <h1 class="text-center">
-        <i class="bi bi-vector-pen"></i> Transcriber
-      </h1>
+      <a href="/" class="text-decoration-none">
+        <h1 class="text-center">
+          <i class="bi bi-vector-pen"></i> Transcriber
+        </h1>
+      </a>
+      {% if session['name'] == null %}
+      <a href="/login">
+        <button class="btn btn-primary">
+          <i class="bi bi-box-arrow-in-right"></i> Log in
+        </button>
+      </a>
+      {% else %}
+      <div class="d-flex align-items-center gap-4">
+        <a href="/logout">
+          <button class="btn btn-primary">
+            <i class="bi bi-box-arrow-in-right"></i> Log out
+          </button>
+        </a>
+      </div>
+      {% endif %}
     </div>
   </header>
   <main class="p-4">
-    <section class="container">
-      <form action="/" method="POST" enctype="multipart/form-data" onsubmit="startLoading()">
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="card col-md-8 col-sm-12 shadow w-100 position-relative">
-            <div class="card-body py-4">
-              <div class="mb-2">
-                <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
-                  <i class="bi bi-cassette-fill"></i> Input audio file
-                </div>
-                <input
-                  type="file"
-                  name="file"
-                  class="form-control"
-                  required
-                  accept="audio/*"
-                >
-              </div>
-              <div class="d-flex align-items-center gap-2">
-                <div class="spinner-border spinner-border-sm text-primary" role="status" id="spinner" hidden>
-                </div>
-                <button type="submit" class="btn btn-primary form-control max-w-20" id="btn">
-                  Submit
-                </button>
-              </div>
-              </div>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-      </form>
-    </section>
-    <div class="m-4"></div>
-    <section class="container">
-      <div class="row">
-          <div class="col-md-2"></div>
-          <div class="card col-md-8 col-sm-12 shadow w-100">
-            <div class="card-body">
-                  <div class="badge border text-dark position-absolute fs-6 badge-light bg-white shadow-sm" style="top:-1rem">
-                    <i class="bi bi-blockquote-right"></i> Text
-                  </div>
-                <pre id="text-container" class="text-wrap">
-                  {% if text == Null %}
-                    Here will be the transcribed text
-                  {% else %}
-                    {{ text }}
-                  {% endif %}
-                </pre>
-            </div>
-          </div>
-         <div class="col-md-2"></div>
-      </div>
-    </section>
+    {% block content %} {% endblock %}
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
